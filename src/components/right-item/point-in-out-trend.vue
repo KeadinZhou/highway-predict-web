@@ -1,8 +1,8 @@
 <template>
     <div>
-        <box-frame title="Watch Point Speed Trend">
+        <box-frame title="Point In&Out Flow Trend">
             <div>
-                <point-vehicle-flow-trend-chart :chart-data="chartData"></point-vehicle-flow-trend-chart>
+                <point-in-out-trend-chart :chart-data="chartData"></point-in-out-trend-chart>
             </div>
         </box-frame>
     </div>
@@ -10,33 +10,34 @@
 
 <script>
   import BoxFrame from '@/components/frame/box-frame'
-  import PointVehicleFlowTrendChart from '@/components/charts/point-vehicle-flow-trend-chart'
+  import PointInOutTrend from '@/components/charts/point-in-out-trend-chart'
   export default {
-    name: "path-average-speed-trend",
+    name: "point-in-out-trend",
     props: {
-      pathIndex: Number
+      pointIndex: Number
     },
     components: {
       'box-frame': BoxFrame,
-      'point-vehicle-flow-trend-chart': PointVehicleFlowTrendChart
+      'point-in-out-trend-chart': PointInOutTrend
     },
     data () {
       return {
         chartData: {
-          columns: ['time', 'flow'],
+          columns: ['time', 'in', 'out'],
           rows: []
         }
       }
     },
     methods: {
       // eslint-disable-next-line no-unused-vars
-      getData (pathIndex) {
+      getData (pointIndex) {
         const that = this
         that.chartData.rows = []
-        for (let time=0; time <= 100; time++) {
+        for (let time=0; time <= 24; time++) {
           that.chartData.rows.push({
             time: time,
-            flow: Math.round(Math.random() * 150)
+            in: Math.round(Math.random() * 500),
+            out: Math.round(Math.random() * 400)+400
           })
         }
         console.log(that.chartData)
@@ -46,8 +47,8 @@
       this.getData(0)
     },
     watch: {
-      pathIndex: function () {
-        this.getData(this.pathIndex)
+      pointIndex: function () {
+        this.getData(this.pointIndex)
       }
     }
   }

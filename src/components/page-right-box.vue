@@ -4,7 +4,8 @@
         <el-collapse-transition>
             <div v-if="pointIndex!=null">
                 <el-divider>Point {{pointIndex}} Detail</el-divider>
-                <point-vehicle-flow-trend :pointIndex="pointIndex"></point-vehicle-flow-trend>
+<!--                <point-vehicle-flow-trend :pointIndex="pointIndex"></point-vehicle-flow-trend>-->
+                    <point-in-out-trend :pointIndex="pointIndex"></point-in-out-trend>
                 <change-point-flow></change-point-flow>
             </div>
         </el-collapse-transition>
@@ -21,6 +22,7 @@
         <weather :timelineTime="timelineTime"></weather>
         <average-speed :timelineTime="timelineTime"></average-speed>
         <vehicle-flow-overview :timelineTime="timelineTime"></vehicle-flow-overview>
+
         <import-data></import-data>
     </div>
 </template>
@@ -31,7 +33,7 @@
   import Weather from '@/components/right-item/weather'
   import AverageSpeed from '@/components/right-item/average-speed'
   import VehicleFlowOverview from '@/components/right-item/vehicle-flow-overview'
-  import PointVehicleFlowTrend from '@/components/right-item/point-vehicle-flow-trend'
+  import PointInOutTrend from '@/components/right-item/point-in-out-trend'
   import ChangePointFlow from '@/components/right-item/change-point-flow'
   import PathAverageSpeedTrend from '@/components/right-item/path-average-speed-trend'
   import ChangePathLanes from '@/components/right-item/change-path-lanes'
@@ -48,7 +50,7 @@
       'average-speed': AverageSpeed,
       'vehicle-flow-overview': VehicleFlowOverview,
       'import-data': ImportData,
-      'point-vehicle-flow-trend': PointVehicleFlowTrend,
+      'point-in-out-trend': PointInOutTrend,
       'change-point-flow': ChangePointFlow,
       'path-average-speed-trend': PathAverageSpeedTrend,
       'change-path-lanes': ChangePathLanes

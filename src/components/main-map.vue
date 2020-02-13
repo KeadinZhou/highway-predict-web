@@ -35,18 +35,31 @@
                 :extData="{index:index}"
                 :key="'point'+index">
             </el-amap-circle-marker>
+
+            <el-amap-circle-marker
+                v-for="(watch_point,index) in watch_points"
+                :center="[watch_point.lon,watch_point.lat]"
+                :radius="5"
+                :zIndex="60"
+                :strokeWeight="0"
+                fillColor="#FFF"
+                cursor="pointer"
+                :events="pathEvents"
+                :extData="{index:index}"
+                :key="'watch_point'+index">
+            </el-amap-circle-marker>
+
             <el-amap-text
-                v-for="(road, index) in roads"
-                :text="'Lanes:'+road.cnt"
-                :position="positions[index]"
+                v-for="(watch_point, index) in watch_points"
+                :text="''+Math.round(Math.random() * 8)"
+                :position="[watch_point.lon, watch_point.lat]"
                 :offset="[-40,-30]"
                 cursor="pointer"
                 :title="'The lanes number of road '+index+ '\nClick to change it'"
-                clickable
-                :events="pathEvents"
                 :extData="{index:index}"
                 :key="'road'+index">
             </el-amap-text>
+
             <el-amap-text
                     v-for="(speed, index) in speeds"
                     :text="'Speed:'+speed.speed"
@@ -88,7 +101,8 @@
             let pathIndex = e.target.F.extData.index
             this.$emit('pathClick',pathIndex);
           }
-        }
+        },
+        watch_points: []
       }
     },
     methods: {
@@ -142,6 +156,7 @@
               let Data = data.data
               that.paths = Data.paths
               that.points = Data.points
+              that.watch_points = Data.watch_points
               that.positionsInit()
               that.roadInit()
               that.updateRoadData(0)
