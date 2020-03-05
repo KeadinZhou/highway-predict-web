@@ -1,5 +1,6 @@
 <template>
     <ve-histogram
+            :extend="extend"
             :data="chartData"
             :legend-visible="false">
     </ve-histogram>
@@ -13,6 +14,15 @@
     },
     data () {
       return {
+        extend: {
+          xAxis: {
+            triggerEvent: true,
+            axisLabel: {
+              margin: 15,
+              rotate: 45
+            }
+          },
+        }
       }
     }
   }

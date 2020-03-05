@@ -1,16 +1,18 @@
 <template>
     <div id="app" ref="pageBox">
         <main-map
-                :timelineTime="timelineTime"
+                :timelineTime="timeText"
                 @pathClick="handlePathClick"
                 @pointClick="handlePointClick">
         </main-map>
         <page-right
-                :timelineTime="timelineTime"
+                :data="date"
+                :timelineTime="timeText"
                 :pathIndex="pathIndex"
                 :pointIndex="pointIndex">
         </page-right>
-        <time-line @timeChange="handleTimeChange"></time-line>
+        <time-line @timeChange="handleTimeChange" :date="date"></time-line>
+        <date-box @dateUpdated="handleDateChange"></date-box>
     </div>
 </template>
 
@@ -18,20 +20,24 @@
   import MainMap from '@/components/main-map'
   import PageRight from '@/components/page-right'
   import Timeline from '@/components/time-line'
+  import DateBox from '@/components/date-box'
   export default {
     name: 'App',
     components: {
       'main-map': MainMap,
       'page-right': PageRight,
-      'time-line': Timeline
+      'time-line': Timeline,
+      'date-box': DateBox
     },
     data () {
       return {
         clientHeight: window.innerHeight,
         clientWidth: window.innerWidth,
+        timeText: this.$store.state.date+' '+this.$store.state.timeToText(0)+':00',
         timelineTime: 0,
         pointIndex: null,
-        pathIndex: null
+        pathIndex: null,
+        date: this.$store.state.date
       }
     },
     methods: {
@@ -41,8 +47,16 @@
         this.$refs.pageBox.style.height = this.clientHeight + 'px'
         this.$refs.pageBox.style.widows = this.clientWidth + 'px'
       },
+      handleDateChange (value) {
+        this.pointIndex = null
+        this.pathIndex = null
+        this.timelineTime = 0
+        this.timeText= this.$store.state.date+' '+this.$store.state.timeToText(this.timelineTime)+':00'
+        this.date = value
+      },
       handleTimeChange (value) {
         this.timelineTime = value
+        this.timeText= this.$store.state.date+' '+this.$store.state.timeToText(this.timelineTime)+':00'
       },
       handlePointClick (index) {
         this.pointIndex = index
@@ -80,5 +94,8 @@
     }
     .el-scrollbar__wrap {
         overflow: auto;
+    }
+    .el-select-dropdown__wrap {
+        overflow: scroll;
     }
 </style>

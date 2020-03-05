@@ -2,7 +2,7 @@
     <div>
         <box-frame title="Average Speed">
             <div class="speed-box">
-                <b>{{speed}} km/h</b>
+                <b>{{$store.state.averageSpeed}} km/h</b>
             </div>
         </box-frame>
     </div>
@@ -13,7 +13,7 @@
   export default {
     name: "average-speed",
     props: {
-      timelineTime: Number
+      timelineTime: String
     },
     components: {
       'box-frame': BoxFrame

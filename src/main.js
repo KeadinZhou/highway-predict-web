@@ -26,5 +26,6 @@ new Vue({
   render: h => h(App),
   created () {
     store.commit('savePage', this)
+    store.commit('getPathData')
   }
 }).$mount('#app')

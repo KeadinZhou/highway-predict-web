@@ -14,7 +14,7 @@
   export default {
     name: "vehicle-flow-overview",
     props: {
-      timelineTime: Number
+      timelineTime: String
     },
     components: {
       'box-frame': BoxFrame,
@@ -23,32 +23,37 @@
     data () {
       return {
         chartData: {
-          columns: ['points', 'flow'],
-          rows: [
-            {'points': 1, 'flow': 100},
-            {'points': 2, 'flow': 434},
-            {'points': 3, 'flow': 455},
-            {'points': 4, 'flow': 345},
-            {'points': 5, 'flow': 123},
-            {'points': 6, 'flow': 78},
-            {'points': 7, 'flow': 644},
-            {'points': 8, 'flow': 633},
-            {'points': 9, 'flow': 788}
-          ]
+          columns: ['id', 'Speed', 'Car'],
+          rows: []
         }
       }
     },
     methods: {
-      // eslint-disable-next-line no-unused-vars
       getData (timelineTime) {
         const that = this
-        for (let item of that.chartData.rows) {
-          item.flow = Math.round(Math.random() * 1000)
-        }
+        that.chartData.rows = []
+        that.$http.get(that.$store.state.api + '/point/by_datetime?datetime='+timelineTime)
+          .then(data => {
+            let Data = data.data.data
+            that.$store.commit('overviewUpdate', Data)
+            for (let item of Data){
+              that.chartData.rows.push({
+                id: item.point_id,
+                Speed: (item.speed?item.speed:0),
+                Car: (item.car?item.car:0)
+              })
+            }
+            that.updated = true
+            console.log(that.chartData)
+          })
+          .catch((error)=>{
+            that.$message.error('error')
+            console.log(error)
+          })
       }
     },
     created () {
-      this.getData(0)
+      // this.getData(this.timelineTime)
     },
     watch: {
       timelineTime: function () {

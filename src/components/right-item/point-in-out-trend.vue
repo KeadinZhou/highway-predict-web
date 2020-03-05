@@ -25,26 +25,36 @@
         chartData: {
           columns: ['time', 'in', 'out'],
           rows: []
-        }
+        },
+        updated: false
       }
     },
     methods: {
-      // eslint-disable-next-line no-unused-vars
       getData (pointIndex) {
         const that = this
         that.chartData.rows = []
-        for (let time=0; time <= 24; time++) {
-          that.chartData.rows.push({
-            time: time,
-            in: Math.round(Math.random() * 500),
-            out: Math.round(Math.random() * 400)+400
+        that.$http.get(that.$store.state.api + '/exit/by_date_and_id?id='+pointIndex+'&date='+that.$store.state.date)
+          .then(data => {
+            let Data = data.data.data
+            for (let item of Data){
+              if(item.exit_id !== pointIndex) continue
+              let time = item.datetime.split(" ")[1].split(":")
+              that.chartData.rows.push({
+                time: time[0]+':'+time[1],
+                in: (item.enter?item.enter:0),
+                out: (item.exit?item.exit:0)
+              })
+            }
+            that.updated = true
           })
-        }
-        console.log(that.chartData)
+          .catch((error)=>{
+            that.$message.error('error')
+            console.log(error)
+          })
       }
     },
     created () {
-      this.getData(0)
+      this.getData(this.pointIndex)
     },
     watch: {
       pointIndex: function () {

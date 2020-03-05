@@ -16,7 +16,7 @@
   export default {
     name: "page-right",
     props: {
-      timelineTime: Number,
+      timelineTime: String,
       pointIndex: Number,
       pathIndex: Number
     },

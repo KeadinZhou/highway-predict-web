@@ -1,29 +1,30 @@
 <template>
     <div class="page-right-box">
-        <h2>G60 Highway Demo</h2>
+        <h2>Expressway Traffic Congestion and Cause Explanation System</h2>
         <el-collapse-transition>
             <div v-if="pointIndex!=null">
-                <el-divider>Point {{pointIndex}} Detail</el-divider>
+                <el-divider>Point <b>{{pointIndex}}</b> Detail</el-divider>
 <!--                <point-vehicle-flow-trend :pointIndex="pointIndex"></point-vehicle-flow-trend>-->
                     <point-in-out-trend :pointIndex="pointIndex"></point-in-out-trend>
-                <change-point-flow></change-point-flow>
+                <change-point-flow v-if="false"></change-point-flow>
             </div>
         </el-collapse-transition>
 
         <el-collapse-transition>
             <div v-if="pathIndex!=null">
-                <el-divider>Path {{pointIndex}} Detail</el-divider>
+                <el-divider>Watch Point <b>{{pathIndex}}</b> Detail</el-divider>
                 <path-average-speed-trend :pathIndex="pathIndex"></path-average-speed-trend>
-                <change-path-lanes></change-path-lanes>
+                <change-path-lanes v-if="false"></change-path-lanes>
             </div>
         </el-collapse-transition>
 
         <el-divider>Entire Road</el-divider>
-        <weather :timelineTime="timelineTime"></weather>
+        <now-time></now-time>
+        <weather :timelineTime="timelineTime" v-if="false"></weather>
         <average-speed :timelineTime="timelineTime"></average-speed>
         <vehicle-flow-overview :timelineTime="timelineTime"></vehicle-flow-overview>
 
-        <import-data></import-data>
+        <import-data v-if="false"></import-data>
     </div>
 </template>
 
@@ -37,10 +38,11 @@
   import ChangePointFlow from '@/components/right-item/change-point-flow'
   import PathAverageSpeedTrend from '@/components/right-item/path-average-speed-trend'
   import ChangePathLanes from '@/components/right-item/change-path-lanes'
+  import NowTime from '@/components/right-item/now-time'
   export default {
     name: "page-right-box",
     props: {
-      timelineTime: Number,
+      timelineTime: String,
       pointIndex: Number,
       pathIndex: Number
     },
@@ -53,7 +55,8 @@
       'point-in-out-trend': PointInOutTrend,
       'change-point-flow': ChangePointFlow,
       'path-average-speed-trend': PathAverageSpeedTrend,
-      'change-path-lanes': ChangePathLanes
+      'change-path-lanes': ChangePathLanes,
+      'now-time': NowTime
     }
   }
 </script>

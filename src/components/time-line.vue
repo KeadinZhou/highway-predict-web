@@ -1,9 +1,17 @@
 <template>
     <div class="time-line">
-        <el-slider v-model="timeValue" :show-tooltip="false" class="time-line-line" @change="handleTimeChange"></el-slider>
+        <el-slider
+                v-model="timeValue"
+                :min="0"
+                :max="155"
+                :show-tooltip="true"
+                :format-tooltip="this.$store.state.timeToText"
+                class="time-line-line"
+                @change="handleTimeChange">
+        </el-slider>
         <el-button
                 :icon="!pause?'el-icon-video-pause':'el-icon-video-play'"
-                :title="pause?'Click to Continue':'Click to Pause'"
+                :title="pause?'Click to Play':'Click to Pause'"
                 @click="pause=!pause"
                 style="font-size: 22px"
                 type="text"
@@ -15,6 +23,9 @@
 <script>
   export default {
     name: "time-line",
+    props: {
+      date: String
+    },
     data () {
       return {
         timeValue: 0,
@@ -28,15 +39,22 @@
           that.getData()
         },3000)
         if (that.pause) return
-        that.timeValue = (that.timeValue + 1) % 101
+        that.timeValue = (that.timeValue + 1) % 156
         that.handleTimeChange()
       },
       handleTimeChange(){
-        this.$emit('timeChange',this.timeValue);
+        this.$store.commit('timeUpdate',this.timeValue)
+        this.$emit('timeChange',this.timeValue)
       }
     },
     created () {
       this.getData()
+    },
+    watch: {
+      date: function () {
+        this.pause = false
+        this.timeValue = 0
+      }
     }
   }
 </script>

@@ -1,7 +1,7 @@
 <template>
     <div class="main-map">
         <el-amap vid="amap"
-                 v-if="pathDataInited"
+                 v-if="updated"
                  :zoom="zoom"
                  :center="center"
                  :scrollWheel="false"
@@ -12,57 +12,61 @@
                  :keyboardEnable="false"
                  lang="en">
             <el-amap-polyline
-                v-for="(path,index) in $store.state.paths"
-                :path="path"
-                :strokeColor="getSpeedColor($store.state.speeds.get($store.state.points[index>=$store.state.points.length?$store.state.points.length-1:index].id))"
+                v-for="(path,index) in paths"
+                :path="path.data"
+                :strokeColor="getSpeedColor(index)"
                 :strokeWeight="10"
                 lineJoin="round"
                 :zIndex="50"
                 cursor="pointer"
+                :events="pathEvents"
+                :extData="{index:index}"
                 :key="'path'+index">
             </el-amap-polyline>
-
             <el-amap-circle-marker
-                v-for="(point,index) in $store.state.exits"
+                v-for="(point,index) in points"
                 :center="[point.lon,point.lat]"
-                :radius="7"
+                :radius="5"
                 :zIndex="60"
                 :strokeWeight="0"
                 fillColor="#000"
                 cursor="pointer"
                 :events="pointEvents"
-                :extData="{index:point.id}"
+                :extData="{index:index}"
                 :key="'point'+index">
             </el-amap-circle-marker>
 
             <el-amap-circle-marker
-                v-for="(watch_point,index) in $store.state.points"
+                v-for="(watch_point,index) in watch_points"
                 :center="[watch_point.lon,watch_point.lat]"
-                :radius="7"
+                :radius="5"
                 :zIndex="60"
                 :strokeWeight="0"
                 fillColor="#FFF"
                 cursor="pointer"
                 :events="pathEvents"
-                :extData="{index:watch_point.id}"
+                :extData="{index:index}"
                 :key="'watch_point'+index">
             </el-amap-circle-marker>
+
             <el-amap-text
-                v-for="(center, index) in this.$store.state.center"
-                :text="''+$store.state.channels.get($store.state.points[index>=$store.state.points.length?$store.state.points.length-1:index].id)"
-                :position="center"
+                v-for="(watch_point, index) in watch_points"
+                :text="''+Math.round(Math.random() * 8)"
+                :position="[watch_point.lon, watch_point.lat]"
                 :offset="[-20,-20]"
+                cursor="pointer"
+                :title="'The lanes number of road '+index+ '\nClick to change it'"
                 :extData="{index:index}"
                 :key="'road'+index">
             </el-amap-text>
 
             <el-amap-text
-                v-for="(center, index) in this.$store.state.center"
-                :text="'Speed:'+$store.state.speeds.get($store.state.points[index>=$store.state.points.length?$store.state.points.length-1:index].id)"
-                :position="center"
-                :offset="[50,30]"
-                :title="'The average speed of road '+index"
-                :key="'speed'+index">
+                    v-for="(speed, index) in speeds"
+                    :text="'Speed:'+speed.speed"
+                    :position="positions[index]"
+                    :offset="[50,30]"
+                    :title="'The average speed of road '+index"
+                    :key="'speed'+index">
             </el-amap-text>
         </el-amap>
     </div>
@@ -72,11 +76,10 @@
   export default {
     name: "main-map",
     props: {
-      timelineTime: String
+      timelineTime: Number
     },
     data () {
       return {
-        pathDataInited: false,
         updated: false,
         roadsUpdated: false,
         speedsUpdated: false,
@@ -103,11 +106,21 @@
       }
     },
     methods: {
-      getSpeedColor (speed) {
-        if (speed === null) return '#909399'
+      getSpeedColor (index) {
+        let speed = this.speeds[index].speed
         if (speed >= 80) return '#67C23A'
         if (speed >= 50) return '#E6A23C'
         return '#F56C6C'
+      },
+      positionsInit () {
+        const that = this
+        that.updated = false
+        for (let index in that.paths) {
+          that.positions.push([
+            (that.paths[index].data[0][0] + that.paths[index].data[that.paths[index].data.length-1][0])/2,
+            (that.paths[index].data[0][1] + that.paths[index].data[that.paths[index].data.length-1][1])/2
+          ])
+        }
       },
       roadInit () {
         const that = this
@@ -135,24 +148,47 @@
         that.speedsUpdated = true
         that.updated = true
       },
-      checkPathInit () {
-        let that = this
-        if(!that.$store.state.initState[3]){
-          setTimeout(() => {
-            that.checkPathInit()
-          }, 500)
-          return
-        }
-        that.pathDataInited = true
+      getData () {
+        const that = this
+        // that.$http.get(that.$store.state.api + '/highway')
+        //   .then(data => {
+        //     if (data.data.code === 200) {
+        //       let Data = data.data
+        //       that.paths = Data.paths
+        //       that.points = Data.points
+        //       that.watch_points = Data.watch_points
+        //       that.positionsInit()
+        //       that.roadInit()
+        //       that.updateRoadData(0)
+        //     } else {
+        //       that.$message.error('error')
+        //     }
+        //   })
+        that.$http.get(that.$store.state.api + '/path')
+          .then(data => {
+            if (data.data.code === 200) {
+              let Data = data.data
+              that.paths = [[]]
+              for (let item of Data.path) {
+                that.paths[0].push([item.long, item.lat])
+              }
+              // that.points = Data.points
+              // that.watch_points = Data.watch_points
+              // that.positionsInit()
+              // that.roadInit()
+              // that.updateRoadData(0)
+            } else {
+              that.$message.error('error')
+            }
+          })
       }
     },
     created () {
-      // this.getData()
-      this.checkPathInit()
+      this.getData()
     },
     watch: {
       timelineTime: function () {
-        // this.updateRoadData(this.timelineTime)
+        this.updateRoadData(this.timelineTime)
       }
     }
   }

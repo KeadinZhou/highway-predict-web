@@ -23,7 +23,7 @@
   export default {
     name: "weather",
     props: {
-      timelineTime: Number
+      timelineTime: String
     },
     components: {
       'box-frame': BoxFrame
