@@ -34,7 +34,7 @@
         height: 100%;
         width: 600px;
         z-index: 500;
-        background: rgba(100,100,100,.7);
+        background: rgba(255,255,255,.7);
         text-align: center;
     }
     .center-box{

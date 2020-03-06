@@ -25,11 +25,13 @@
             <el-amap-circle-marker
                 v-for="(point,index) in $store.state.exits"
                 :center="[point.lon,point.lat]"
-                :radius="7"
+                :radius="10"
                 :zIndex="60"
                 :strokeWeight="0"
-                fillColor="#000"
+                strokeColor="#000"
+                fillColor="#F00"
                 cursor="pointer"
+                :fillOpacity="1"
                 :events="pointEvents"
                 :extData="{index:point.id}"
                 :key="'point'+index">
@@ -43,6 +45,7 @@
                 :strokeWeight="0"
                 fillColor="#FFF"
                 cursor="pointer"
+                :fillOpacity="1"
                 :events="pathEvents"
                 :extData="{index:watch_point.id}"
                 :key="'watch_point'+index">

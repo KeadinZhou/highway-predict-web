@@ -13,6 +13,7 @@
         </page-right>
         <time-line @timeChange="handleTimeChange" :date="date"></time-line>
         <date-box @dateUpdated="handleDateChange"></date-box>
+        <traffic-congestion-box></traffic-congestion-box>
     </div>
 </template>
 
@@ -21,13 +22,15 @@
   import PageRight from '@/components/page-right'
   import Timeline from '@/components/time-line'
   import DateBox from '@/components/date-box'
+  import TrafficCongestionBox from '@/components/traffic-congestion-box'
   export default {
     name: 'App',
     components: {
       'main-map': MainMap,
       'page-right': PageRight,
       'time-line': Timeline,
-      'date-box': DateBox
+      'date-box': DateBox,
+      'traffic-congestion-box': TrafficCongestionBox
     },
     data () {
       return {

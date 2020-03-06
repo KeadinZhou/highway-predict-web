@@ -1,6 +1,6 @@
 <template>
     <div>
-        <box-frame title="Point In&Out Flow Trend">
+        <box-frame title="Exit In&Out Flow Trend">
             <div>
                 <point-in-out-trend-chart :chart-data="chartData"></point-in-out-trend-chart>
             </div>

@@ -3,7 +3,7 @@
         <h2>Expressway Traffic Congestion and Cause Explanation System</h2>
         <el-collapse-transition>
             <div v-if="pointIndex!=null">
-                <el-divider>Point <b>{{pointIndex}}</b> Detail</el-divider>
+                <el-divider>Exit <b>{{pointIndex}}</b> Detail</el-divider>
 <!--                <point-vehicle-flow-trend :pointIndex="pointIndex"></point-vehicle-flow-trend>-->
                     <point-in-out-trend :pointIndex="pointIndex"></point-in-out-trend>
                 <change-point-flow v-if="false"></change-point-flow>
@@ -12,7 +12,7 @@
 
         <el-collapse-transition>
             <div v-if="pathIndex!=null">
-                <el-divider>Watch Point <b>{{pathIndex}}</b> Detail</el-divider>
+                <el-divider>Sensor Point <b>{{pathIndex}}</b> Detail</el-divider>
                 <path-average-speed-trend :pathIndex="pathIndex"></path-average-speed-trend>
                 <change-path-lanes v-if="false"></change-path-lanes>
             </div>
@@ -66,7 +66,7 @@
         width: 500px;
         /*height: 1000px;*/
         margin: 30px 0;
-        color: white;
+        color: black;
     }
     h2{
         margin-bottom: 50px;

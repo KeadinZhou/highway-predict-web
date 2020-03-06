@@ -1,11 +1,16 @@
 <template>
     <div>
-        <box-frame title="Watch Point Speed & Car Trend">
+        <box-frame title="Sensor Point Speed Trend">
             <div>
                 <point-vehicle-flow-trend-chart :chart-data="chartDataSpeed"></point-vehicle-flow-trend-chart>
             </div>
         </box-frame>
-        <box-frame title="Road Channel Change">
+        <box-frame title="Sensor Point Channel Trend">
+            <div>
+                <point-vehicle-flow-trend-chart :chart-data="chartDataCar"></point-vehicle-flow-trend-chart>
+            </div>
+        </box-frame>
+        <box-frame title="Number of Lane">
             <div>
                 <point-vehicle-flow-trend-chart :chart-data="chartDataChannel"></point-vehicle-flow-trend-chart>
             </div>
@@ -28,11 +33,15 @@
     data () {
       return {
         chartDataSpeed: {
-          columns: ['time', 'Speed','Car'],
+          columns: ['time', 'Speed'],
           rows: []
         },
         chartDataChannel: {
           columns: ['time', 'Channel'],
+          rows: []
+        },
+        chartDataCar: {
+          columns: ['time', 'Car'],
           rows: []
         }
       }
@@ -42,6 +51,7 @@
         const that = this
         that.chartDataSpeed.rows = []
         that.chartDataChannel.rows = []
+        that.chartDataCar.rows = []
         that.$http.get(that.$store.state.api + '/point/by_date_and_id?id='+pathIndex+'&date='+that.$store.state.date)
           .then(data => {
             let Data = data.data.data
@@ -51,6 +61,9 @@
               that.chartDataSpeed.rows.push({
                 time: time[0]+':'+time[1],
                 Speed: (item.speed?item.speed:0),
+              })
+              that.chartDataCar.rows.push({
+                time: time[0]+':'+time[1],
                 Car: (item.car?item.car:0)
               })
               that.chartDataChannel.rows.push({

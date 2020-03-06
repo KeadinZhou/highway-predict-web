@@ -1,13 +1,15 @@
 <template>
     <div class="box-frame">
-        <div class="box-title" @click="showSwitch">
-            {{title}}
-        </div>
-        <el-collapse-transition>
-            <div class="box-main" v-show="boxMainShow">
-                <slot></slot>
+        <el-card :body-style="{ padding: '0px' }">
+            <div class="box-title" @click="showSwitch">
+                {{title}}
             </div>
-        </el-collapse-transition>
+            <el-collapse-transition>
+                <div class="box-main" v-show="boxMainShow">
+                    <slot></slot>
+                </div>
+            </el-collapse-transition>
+        </el-card>
     </div>
 </template>
 

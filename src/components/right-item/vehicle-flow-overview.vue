@@ -1,6 +1,6 @@
 <template>
     <div>
-        <box-frame title="Vehicle Flow Overview">
+        <box-frame title="Vehicle Flow Trend">
             <div>
                 <vehicle-flow-overview-chart :chartData="chartData"></vehicle-flow-overview-chart>
             </div>
@@ -23,7 +23,7 @@
     data () {
       return {
         chartData: {
-          columns: ['id', 'Speed', 'Car'],
+          columns: ['id', 'Car'],
           rows: []
         }
       }
@@ -39,7 +39,7 @@
             for (let item of Data){
               that.chartData.rows.push({
                 id: item.point_id,
-                Speed: (item.speed?item.speed:0),
+                // Speed: (item.speed?item.speed:0),
                 Car: (item.car?item.car:0)
               })
             }

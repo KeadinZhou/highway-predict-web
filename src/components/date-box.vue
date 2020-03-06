@@ -1,13 +1,16 @@
 <template>
-    <div class="date-box">
-        <el-select v-model="dateChose">
-            <el-option
-                    v-for="item in dateList"
-                    :key="item"
-                    :label="item"
-                    :value="item">
-            </el-option>
-        </el-select>
+    <div class="out-box">
+        <div class="date-box">
+            <div style="font-size: 14px; margin-bottom: 5px"><b>Choose the Observed Time</b></div>
+            <el-select v-model="dateChose">
+                <el-option
+                        v-for="item in dateList"
+                        :key="item"
+                        :label="item"
+                        :value="item">
+                </el-option>
+            </el-select>
+        </div>
     </div>
 </template>
 
@@ -41,9 +44,15 @@
 
 <style scoped>
     .date-box{
+        width: 200px;
+        margin: 20px;
+        text-align: center;
+    }
+    .out-box{
         position: fixed;
-        width: 150px;
         left: 40px;
         top: 40px;
+        background: rgba(255,255,255,.7);
+        border-radius: 18px;
     }
 </style>
