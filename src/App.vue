@@ -22,7 +22,7 @@
   import PageRight from '@/components/page-right'
   import Timeline from '@/components/time-line'
   import DateBox from '@/components/date-box'
-  import TrafficCongestionBox from '@/components/traffic-congestion-box'
+  import TrafficCongestionBox from '@/components/explain/traffic-congestion-box'
   export default {
     name: 'App',
     components: {

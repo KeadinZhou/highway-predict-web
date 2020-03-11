@@ -12,11 +12,6 @@ Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(VCharts)
 Vue.use(VueAMap)
-VueAMap.initAMapApiLoader({
-  key: '9a7e7f380a7953213bbecffa284de3e6',
-  plugin: ['AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType', 'AMap.PolyEditor', 'AMap.CircleEditor'],
-  v: '1.4.4'
-})
 axios.defaults.withCredentials = true
 Vue.prototype.$http = axios
 

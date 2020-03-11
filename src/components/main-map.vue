@@ -10,7 +10,7 @@
                  :zoomEnable="false"
                  :doubleClickZoom="false"
                  :keyboardEnable="false"
-                 lang="en">
+                 lang="zh">
             <el-amap-polyline
                 v-for="(path,index) in $store.state.paths"
                 :path="path"
@@ -50,18 +50,28 @@
                 :extData="{index:watch_point.id}"
                 :key="'watch_point'+index">
             </el-amap-circle-marker>
+
+<!--            <el-amap-text-->
+<!--                v-for="(center, index) in this.$store.state.center"-->
+<!--                :text="''+$store.state.channels.get($store.state.points[index>=$store.state.points.length?$store.state.points.length-1:index].id)"-->
+<!--                :position="center"-->
+<!--                :offset="[-20,-20]"-->
+<!--                :extData="{index:index}"-->
+<!--                :key="'road'+index">-->
+<!--            </el-amap-text>-->
+
             <el-amap-text
-                v-for="(center, index) in this.$store.state.center"
-                :text="''+$store.state.channels.get($store.state.points[index>=$store.state.points.length?$store.state.points.length-1:index].id)"
-                :position="center"
-                :offset="[-20,-20]"
-                :extData="{index:index}"
-                :key="'road'+index">
+                v-for="(item, index) in textData"
+                topWhenClick
+                :text="item.text"
+                :position="item.position"
+                :offset="[(item.text.length/2)*(-25)-25,0]"
+                :key="'text'+index">
             </el-amap-text>
 
             <el-amap-text
                 v-for="(center, index) in this.$store.state.center"
-                :text="'Speed:'+$store.state.speeds.get($store.state.points[index>=$store.state.points.length?$store.state.points.length-1:index].id)"
+                :text="''+$store.state.speeds.get($store.state.points[index>=$store.state.points.length?$store.state.points.length-1:index].id)"
                 :position="center"
                 :offset="[50,30]"
                 :title="'The average speed of road '+index"
@@ -72,10 +82,17 @@
 </template>
 
 <script>
+  import VueAMap from 'vue-amap'
+  VueAMap.initAMapApiLoader({
+    key: '9a7e7f380a7953213bbecffa284de3e6',
+    plugin: ['AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType', 'AMap.PolyEditor', 'AMap.CircleEditor'],
+    v: '1.4.4'
+  })
   export default {
     name: "main-map",
     props: {
-      timelineTime: String
+      timelineTime: String,
+      VueAMap
     },
     data () {
       return {
@@ -85,6 +102,22 @@
         speedsUpdated: false,
         zoom: 11,
         center: [120.71402834961201+0.18, 30.642591064591393],
+        textData: [
+          {text: '亭枫枢纽', position: [120.99461656374115, 30.851251798697746]},
+          {text: '嘉善(大云)互通', position: [120.94967772150358+0.02, 30.7963762049402]},
+          {text: '步云枢纽', position: [120.91368362271082, 30.77024791893028]},
+          {text: '嘉兴互通', position: [120.87039961938245, 30.740092797905948]},
+          {text: '嘉兴枢纽', position: [120.77140840317637, 30.668120048202425]},
+          {text: '嘉兴2号枢纽副', position: [120.74861162574523, 30.657275645402517]},
+          {text: '王店互通', position: [120.7131379621995, 30.64214062552325]},
+          {text: '嘉兴服务区', position: [120.6785093390154, 30.62196118174122]},
+          {text: '屠甸收费站', position: [120.63501856608474, 30.576722921826878]},
+          {text: '桐乡收费站', position: [120.54907869763679, 30.530444896612266]},
+          {text: '桐乡枢纽', position: [120.51124588834229, 30.50969224622895]},
+          {text: '长安服务区', position: [120.46611296932716, 30.48598062756517]},
+          {text: '长安互通', position: [120.43842570208021, 30.474246122274714]},
+          {text: '沈士枢纽转杭甬高速', position: [120.398617006375+0.02, 30.438400448146467]}
+        ],
         paths: [],
         roads: [],
         speeds: [],

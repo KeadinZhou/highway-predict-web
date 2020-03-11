@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-const api = 'http://47.111.25.1:5003/v1'
+const api = 'http://47.100.13.188/v1'
 
 export default new Vuex.Store({
   state: {
@@ -18,7 +18,7 @@ export default new Vuex.Store({
     date: '2019-09-23',
     time: 0,
     timeToText: function (time) {
-      let val = 6*60+time*5
+      let val = 7*60+time*5
       return (''+((val/60<10?'0':'')+parseInt(val/60))+':'+((val%60<10?'0':'')+val%60))
     },
     speeds: new Map(),

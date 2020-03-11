@@ -3,7 +3,7 @@
         <el-slider
                 v-model="timeValue"
                 :min="0"
-                :max="155"
+                :max="132"
                 :show-tooltip="true"
                 :format-tooltip="this.$store.state.timeToText"
                 class="time-line-line"
@@ -37,9 +37,9 @@
         const that = this
         setTimeout( () => {
           that.getData()
-        },3000)
+        },5000)
         if (that.pause) return
-        that.timeValue = (that.timeValue + 1) % 156
+        that.timeValue = (that.timeValue + 1) % 133
         that.handleTimeChange()
       },
       handleTimeChange(){

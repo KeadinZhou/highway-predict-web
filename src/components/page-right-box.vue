@@ -1,9 +1,10 @@
 <template>
     <div class="page-right-box">
-        <h2>Expressway Traffic Congestion and Cause Explanation System</h2>
+        <h1>高速公路智慧决策系统</h1>
+        <h4>Expressway Traffic Congestion and Cause Explanation System</h4>
         <el-collapse-transition>
             <div v-if="pointIndex!=null">
-                <el-divider>Exit <b>{{pointIndex}}</b> Detail</el-divider>
+                <el-divider>Toll Station <b>{{pointIndex}}</b> Detail</el-divider>
 <!--                <point-vehicle-flow-trend :pointIndex="pointIndex"></point-vehicle-flow-trend>-->
                     <point-in-out-trend :pointIndex="pointIndex"></point-in-out-trend>
                 <change-point-flow v-if="false"></change-point-flow>
@@ -68,7 +69,7 @@
         margin: 30px 0;
         color: black;
     }
-    h2{
+    h4{
         margin-bottom: 50px;
     }
 </style>
