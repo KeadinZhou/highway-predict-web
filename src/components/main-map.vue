@@ -65,7 +65,7 @@
                 topWhenClick
                 :text="item.text"
                 :position="item.position"
-                :offset="[(item.text.length/2)*(-25)-25,0]"
+                :offset="[(item.text.length/2)*(-25)-25-20,-20]"
                 :key="'text'+index">
             </el-amap-text>
 

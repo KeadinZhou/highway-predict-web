@@ -1,6 +1,7 @@
 <template>
     <div>
-        <box-frame title="Enter & Exit Traffic">
+<!--        <box-frame title="Enter & Exit Traffic">-->
+        <box-frame title="进出流量">
             <div>
                 <point-in-out-trend-chart :chart-data="chartData"></point-in-out-trend-chart>
             </div>

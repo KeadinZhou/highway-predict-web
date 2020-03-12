@@ -1,10 +1,11 @@
 <template>
     <div class="page-right-box">
         <h1>高速公路智慧决策系统</h1>
-        <h4>Expressway Traffic Congestion and Cause Explanation System</h4>
+        <h3>Intelligent Prognostics and Decision Support System for Expressway</h3>
         <el-collapse-transition>
             <div v-if="pointIndex!=null">
-                <el-divider>Toll Station <b>{{pointIndex}}</b> Detail</el-divider>
+<!--                <el-divider>Toll Station <b>{{pointIndex}}</b> Detail</el-divider>-->
+                <el-divider>收费站 <b>{{pointIndex}}</b> 详情</el-divider>
 <!--                <point-vehicle-flow-trend :pointIndex="pointIndex"></point-vehicle-flow-trend>-->
                     <point-in-out-trend :pointIndex="pointIndex"></point-in-out-trend>
                 <change-point-flow v-if="false"></change-point-flow>
@@ -13,13 +14,15 @@
 
         <el-collapse-transition>
             <div v-if="pathIndex!=null">
-                <el-divider>Sensor Point <b>{{pathIndex}}</b> Detail</el-divider>
+<!--                <el-divider>Sensor Point <b>{{pathIndex}}</b> Detail</el-divider>-->
+                <el-divider>卡口 <b>{{pathIndex}}</b> 详情</el-divider>
                 <path-average-speed-trend :pathIndex="pathIndex"></path-average-speed-trend>
                 <change-path-lanes v-if="false"></change-path-lanes>
             </div>
         </el-collapse-transition>
 
-        <el-divider>Entire Road</el-divider>
+<!--        <el-divider>Entire Road</el-divider>-->
+        <el-divider>路段概况</el-divider>
         <now-time></now-time>
         <weather :timelineTime="timelineTime" v-if="false"></weather>
         <average-speed :timelineTime="timelineTime"></average-speed>
@@ -69,7 +72,7 @@
         margin: 30px 0;
         color: black;
     }
-    h4{
+    h3{
         margin-bottom: 50px;
     }
 </style>

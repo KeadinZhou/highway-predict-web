@@ -1,6 +1,7 @@
 <template>
     <div>
-        <box-frame title="Average Speed">
+<!--        <box-frame title="Average Speed">-->
+        <box-frame title="平均车流速度">
             <div class="speed-box">
                 <b>{{$store.state.averageSpeed}} km/h</b>
             </div>

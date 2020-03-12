@@ -1,16 +1,19 @@
 <template>
     <div>
-        <box-frame title="Sensor Point Speed Trend">
+<!--        <box-frame title="Sensor Point Speed Trend">-->
+        <box-frame title="速度">
             <div>
                 <point-vehicle-flow-trend-chart :chart-data="chartDataSpeed"></point-vehicle-flow-trend-chart>
             </div>
         </box-frame>
-        <box-frame title="Sensor Point Channel Trend">
+<!--        <box-frame title="PCU Trend">-->
+        <box-frame title="车当量">
             <div>
                 <point-vehicle-flow-trend-chart :chart-data="chartDataCar"></point-vehicle-flow-trend-chart>
             </div>
         </box-frame>
-        <box-frame title="Number of Lane">
+<!--        <box-frame title="Number of Lane">-->
+        <box-frame title="车道数">
             <div>
                 <point-vehicle-flow-trend-chart :chart-data="chartDataChannel"></point-vehicle-flow-trend-chart>
             </div>

@@ -1,7 +1,8 @@
 <template>
     <div class="out-box">
         <div class="date-box">
-            <div style="font-size: 14px; margin-bottom: 5px"><b>Choose the Observed Time</b></div>
+<!--            <div style="font-size: 14px; margin-bottom: 5px"><b>Choose the Observed Time</b></div>-->
+            <div style="font-size: 14px; margin-bottom: 5px"><b>选择观测日期</b></div>
             <el-select v-model="dateChose">
                 <el-option
                         v-for="item in dateList"

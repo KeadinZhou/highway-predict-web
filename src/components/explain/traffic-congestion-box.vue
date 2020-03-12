@@ -1,34 +1,39 @@
 <template>
     <div>
         <el-dialog
-                :title="'Traffic Congestion ('+this.$store.state.date+')'"
+                :title="'路况异常分析 ('+this.$store.state.date+')'"
                 :visible.sync="dialogVisible"
                 :before-close="handleClose"
                 append-to-body
                 width="1800px">
             <div class="dialog-box">
                 <el-table :data="tableData" class="table-box" v-loading="listLoading" border>
-                    <el-table-column label="Sensor" align="center" width="100">
+<!--                    <el-table-column label="Sensor" align="center" width="100">-->
+                    <el-table-column label="卡口编号" align="center" width="100">
                         <template slot-scope="scope">
                             {{ scope.row.point_id }}
                         </template>
                     </el-table-column>
-                    <el-table-column label="Time" align="center">
+<!--                    <el-table-column label="Time" align="center">-->
+                    <el-table-column label="时间" align="center">
                         <template slot-scope="scope">
                             {{ scope.row.datetime }}
                         </template>
                     </el-table-column>
-                    <el-table-column label="Speed" align="center" width="150">
+<!--                    <el-table-column label="Speed" align="center" width="150">-->
+                    <el-table-column label="车流速度" align="center" width="150">
                         <template slot-scope="scope">
                             {{ scope.row.speed }}
                         </template>
                     </el-table-column>
-                    <el-table-column label="History" align="center" width="150">
+                    <el-table-column label="历史车流速度" align="center" width="150">
+<!--                    <el-table-column label="History" align="center" width="150">-->
                         <template slot-scope="scope">
                             {{ scope.row.median_speed }}
                         </template>
                     </el-table-column>
-                    <el-table-column label="Explain" align="center" width="100">
+                    <el-table-column label="原因分析" align="center" width="100">
+<!--                    <el-table-column label="Explain" align="center" width="100">-->
                         <template slot-scope="scope">
                             <span style="cursor:pointer;" @click="explain(scope.row,scope.$index)"><i :class="nowIndex===scope.$index?'el-icon-right':'el-icon-view'"></i></span>
                         </template>
@@ -36,11 +41,16 @@
                 </el-table>
                 <div class="explain-box" v-loading="explainLoading" v-if="tableData[0]">
                     <div style="text-align: center" v-if="explainData">
-                        Sensor: <b>{{tableData[nowIndex].point_id}}</b><el-divider direction="vertical"></el-divider>
-                        Time: <b>{{tableData[nowIndex].datetime}}</b><el-divider direction="vertical"></el-divider>
-                        Speed: <b>{{tableData[nowIndex].speed}}</b><el-divider direction="vertical"></el-divider>
-                        History: <b>{{tableData[nowIndex].median_speed}}</b><el-divider direction="vertical"></el-divider>
-                        Predict: <b>{{explainData.predict_y.toFixed(4)}}</b>
+<!--                        Sensor: <b>{{tableData[nowIndex].point_id}}</b><el-divider direction="vertical"></el-divider>-->
+<!--                        Time: <b>{{tableData[nowIndex].datetime}}</b><el-divider direction="vertical"></el-divider>-->
+<!--                        Speed: <b>{{tableData[nowIndex].speed}}</b><el-divider direction="vertical"></el-divider>-->
+<!--                        History: <b>{{tableData[nowIndex].median_speed}}</b><el-divider direction="vertical"></el-divider>-->
+<!--                        Predict: <b>{{explainData.predict_y.toFixed(4)}}</b>-->
+                        卡口编号: <b>{{tableData[nowIndex].point_id}}</b><el-divider direction="vertical"></el-divider>
+                        时间: <b>{{tableData[nowIndex].datetime}}</b><el-divider direction="vertical"></el-divider>
+                        车流速度: <b>{{tableData[nowIndex].speed}}</b><el-divider direction="vertical"></el-divider>
+                        历史车流速度: <b>{{tableData[nowIndex].median_speed}}</b><el-divider direction="vertical"></el-divider>
+                        原因分析: <b>{{explainData.predict_y.toFixed(4)}}</b>
                     </div>
                     <br>
                     <iframe v-if="explainUrl" :src="explainUrl" frameborder="0" width="100%" height="166px"></iframe>
@@ -56,7 +66,8 @@
         </el-dialog>
 
         <div class="traffic-congestion-box">
-            <el-button type="info" round @click="dialogVisible=true">Traffic Congestion</el-button>
+<!--            <el-button type="info" round @click="dialogVisible=true">Traffic Congestion</el-button>-->
+            <el-button type="info" round @click="dialogVisible=true">路况异常分析</el-button>
         </div>
     </div>
 </template>

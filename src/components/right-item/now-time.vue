@@ -1,6 +1,7 @@
 <template>
     <div>
-        <box-frame title="Current Time">
+<!--        <box-frame title="Current Time">-->
+        <box-frame title="当前时间">
             <div class="now-time">
                 {{$store.state.date + ' ' + $store.state.timeToText($store.state.time)}}
             </div>

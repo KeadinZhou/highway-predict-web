@@ -1,6 +1,7 @@
 <template>
     <div>
-        <box-frame title="Vehicle Flow Trend">
+<!--        <box-frame title="Vehicle Flow Trend">-->
+        <box-frame title="实时路段交通量">
             <div>
                 <vehicle-flow-overview-chart :chartData="chartData"></vehicle-flow-overview-chart>
             </div>
