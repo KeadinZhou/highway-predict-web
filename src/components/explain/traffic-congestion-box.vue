@@ -50,7 +50,7 @@
                         时间: <b>{{tableData[nowIndex].datetime}}</b><el-divider direction="vertical"></el-divider>
                         车流速度: <b>{{tableData[nowIndex].speed}}</b><el-divider direction="vertical"></el-divider>
                         历史车流速度: <b>{{tableData[nowIndex].median_speed}}</b><el-divider direction="vertical"></el-divider>
-                        原因分析: <b>{{explainData.predict_y.toFixed(4)}}</b>
+                        预期速度: <b>{{explainData.predict_y.toFixed(4)}}</b>
                     </div>
                     <br>
                     <iframe v-if="explainUrl" :src="explainUrl" frameborder="0" width="100%" height="166px"></iframe>
