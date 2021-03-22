@@ -1,9 +1,9 @@
 <template>
     <div class="page-right-box">
-        <h1>高速交通异常状态分析系统</h1>
-<!--        <h1>高速公路智慧决策系统</h1>-->
-<!--        <h3>Intelligent Prognostics and Decision Support System for Expressway</h3>-->
-        <div id="title-last">欢迎你，<el-button type="text">Admin</el-button></div>
+<!--        <h1>高速交通异常状态分析系统</h1>-->
+        <h1>高速公路智慧决策系统</h1>
+        <h3 style="margin-bottom: 50px">Intelligent Prognostics and Decision Support System for Expressway</h3>
+<!--        <div id="title-last">欢迎你，<el-button type="text">Admin</el-button></div>-->
         <el-collapse-transition>
             <div v-if="pointIndex!=null">
 <!--                <el-divider>Toll Station <b>{{pointIndex}}</b> Detail</el-divider>-->

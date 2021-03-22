@@ -1,7 +1,7 @@
 <template>
     <div style="width: calc(50% - 5px)">
         <h2 style="text-align: center">{{translate(data[0])}}</h2>
-        <explain-line-chart :chart-data="chartData" :mark-point="markPoint"></explain-line-chart>
+        <explain-line-chart :chart-data="chartData" :mark-point="null"></explain-line-chart>
     </div>
 </template>
 
